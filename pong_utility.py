@@ -5,6 +5,24 @@ import requests
 import json_loader
 import fetch
 from bs4 import BeautifulSoup
+import os
+
+from git import Repo
+
+
+def ():
+git_url = "https://github.com/heroespatchnotes/heroes-talents.git"
+repo_dir = r"C:\temp\repo"
+Repo.clone_from(git_url, repo_dir, branch='master', bare=True)
+
+
+dir_path = r"C:\Users\pust7\heroes-talents\hero"
+filename_list = []
+for json_file in os.listdir(dir_path):
+    filename_list.append(os.path.join(dir_path, json_file))
+
+    hero_json = json_loader.get_json(os.path.join(dir_path, json_file))
+
 
 # loads heroes.json into memory for testing
 # with open(r"C:\Users\z071728\pust777\five-man-bot\FiveMan\content_lookup.json") as f:
@@ -22,8 +40,14 @@ from bs4 import BeautifulSoup
 # # prints list
 # for elem in data[:73]:
 #     print('{0}--{1}'.format(elem['id'], elem['name']))
-content_file = r"C:\Users\pust7\five-man-bot\FiveMan\content_lookup.json"
+content_file = r"C:\dev\five-man-bot-dev\content_lookup.json"
 content_json = json_loader.get_json(content_file)
+
+for i in item_generator(resp.json()[0]['talents'], 7, "title"):
+    print(i)
+for i in item_generator(resp.json(), "Block", "title"):
+    print(i)
+
 
 def item_generator(json_input, lookup_value, yield_value):
     if isinstance(json_input, dict):
@@ -127,6 +151,12 @@ def get_hero_builds(hero):
             return build_dict
     else:
         return "{} is not a valid hero".format(hero)
+
+
+
+
+
+
 
 def main():
     builds = {}
