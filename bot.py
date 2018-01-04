@@ -1,10 +1,11 @@
 import asyncio
-import os
-import discord
+improt os
 from discord.ext import commands
+from cogs.utils import checks
 import fetch
 import db_worker
 from hots_build_builder import BuildBuilder
+import logging
 
 KEY = os.environ.get('FIVE_MAN')#JSON_KEYS['five-man']
 BUILD_BUILDER = BuildBuilder()
@@ -20,6 +21,16 @@ async def on_ready():
     print(BOT.user.name)
     print(BOT.user.id)
     print('------')
+
+# @BOT.event
+# async def on_message(message):
+#     if message.content.startswith("{{") and message.content.endswith("}}"):
+#         info_request = message.content[2:-2].lower()
+#         msg = BUILD_BUILDER.process_request(info_request)
+#         talent = message.content[2:-2].lower()
+#         #description = BUILD_BUILDER.get_talent(talent)
+#         # await BOT.send_message(message.channel, msg)
+#         await BOT.send_message(message.channel, "talent, that's generous")
 
 @BOT.command(pass_context=True)
 async def say(ctx, *, message=None):
@@ -83,15 +94,6 @@ async def h(ctx, *, message=None):
         #await BOT.send_message(message.channel, msg)
         await BOT.send_message(message.channel, "talent, that's generous")
 
-# @BOT.event
-# async def on_message(message):
-#     if message.content.startswith("{{") and message.content.endswith("}}"):
-#         info_request = message.content[2:-2].lower()
-#         msg = BUILD_BUILDER.process_request(info_request)
-#         talent = message.content[2:-2].lower()
-#         #description = BUILD_BUILDER.get_talent(talent)
-#         # await BOT.send_message(message.channel, msg)
-#         await BOT.send_message(message.channel, "talent, that's generous")
 
 # def test():
 #     '''test all the things'''
