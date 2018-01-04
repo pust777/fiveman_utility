@@ -1,5 +1,5 @@
 import asyncio
-improt os
+import os
 from discord.ext import commands
 from cogs.utils import checks
 import fetch
