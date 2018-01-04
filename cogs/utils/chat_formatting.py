@@ -1,5 +1,5 @@
-'''Borrowed from Red-DiscordBot
-https://github.com/Cog-Creators/Red-DiscordBot'''
+'''Straight copy from Cog-Creators
+https://github.com/Cog-Creators/Red-DiscordBot/tree/develop/cogs/utils'''
 
 def error(text):
     return "\N{NO ENTRY SIGN} {}".format(text)
