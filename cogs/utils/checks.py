@@ -1,3 +1,6 @@
+'''Straight copy from Cog-Creators
+https://github.com/Cog-Creators/Red-DiscordBot/tree/develop/cogs/utils'''
+
 from discord.ext import commands
 import discord.utils
 from __main__ import settings
@@ -8,9 +11,7 @@ from __main__ import settings
 #                 https://github.com/Rapptz
 #          https://github.com/Rapptz/RoboDanny/tree/async
 #
-# Borrowed from Cog-Creators
-#                   https://github.com/Cog-Creators
-# https://github.com/Cog-Creators/Red-DiscordBot/blob/develop/cogs/utils/checks.py
+
 
 def is_owner_check(ctx):
     _id = ctx.message.author.id
