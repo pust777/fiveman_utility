@@ -22,9 +22,9 @@ async def on_ready():
     print('------')
 
 @BOT.command(pass_context=True)
-async def say2(ctx, *, message=None):
+async def say(ctx, *, message=None):
     if message is None:
-        await BOT.say("What would you like me to say?")
+        await BOT.say("Say something, I'm giving up on you.\nI'll be the bot, if you want me to.")
     else:
         await BOT.say(message)
 
@@ -51,9 +51,13 @@ async def patchfor(ctx, *, message=None):
     else:
         patch = fetch.get_hero_patch_notes(message)
         await BOT.say(patch)
+Usage: 
+@bot.command(aliases=["bar", "baz"])
+async def foo():
+    pass
 
 @BOT.command(pass_context=True)
-async def build(ctx, *, message=None):
+async def build(ctx, *, message=None, aliases=["build", "builds"]):
     if message is None:
         await BOT.say("What hero build are you looking for?")
     else:
