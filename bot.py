@@ -10,89 +10,87 @@ import logging
 KEY = os.environ.get('FIVE_MAN')#JSON_KEYS['five-man']
 BUILD_BUILDER = BuildBuilder()
 
-DESCRIPTION = '''An example BOT to showcase the discord.ext.commands extension
+DESCRIPTION = '''An example bot to showcase the discord.ext.commands extension
 module.There are a number of utility commands being showcased here.'''
-BOT = commands.Bot(command_prefix="?", description=DESCRIPTION)
+bot = commands.bot(command_prefix="?", description=DESCRIPTION)
 
 
-@BOT.event
+@bot.event
 async def on_ready():
     print('Logged in as')
-    print(BOT.user.name)
-    print(BOT.user.id)
+    print(bot.user.name)
+    print(bot.user.id)
     print('------')
+    await bot.change_presence(game=discord.Game(name="?help"))
 
-# @BOT.event
-# async def on_message(message):
-#     if message.content.startswith("{{") and message.content.endswith("}}"):
-#         info_request = message.content[2:-2].lower()
-#         msg = BUILD_BUILDER.process_request(info_request)
-#         talent = message.content[2:-2].lower()
-#         #description = BUILD_BUILDER.get_talent(talent)
-#         # await BOT.send_message(message.channel, msg)
-#         await BOT.send_message(message.channel, "talent, that's generous")
+@bot.event
+async def on_message(message):
+    if message.content.startswith("{{") and message.content.endswith("}}"):
+        info_request = message.content[2:-2].lower()
+        msg = BUILD_BUILDER.process_request(info_request)
+        talent = message.content[2:-2].lower()
+        description = BUILD_BUILDER.get_talent(talent)
+        await bot.send_message(message.channel, "talent, that's generous")
 
-@BOT.command(pass_context=True)
+@bot.command(pass_context=True)
 async def say(ctx, *, message=None):
     if message is None:
-        await BOT.say("Say something, I'm giving up on you.\nI'll be the bot, if you want me to.")
+        await bot.process_commands(message)
+        await bot.say("Say something, I'm giving up on you.\nI'll be the bot, if you want me to.")
     else:
-        await BOT.say(message)
+        await bot.process_commands(message)
+        await bot.say(message)
 
-@BOT.command(pass_context=True)
+@bot.command(pass_context=True)
 async def strong(ctx, *, message=None):
     if message is None:
-        await BOT.say("What hero counter are you looking for?")
+        await bot.say("What hero counter are you looking for?")
     else:
         counters = fetch.get_strong_counters(message)
-        await BOT.say(counters)
+        await bot.say(counters)
 
-@BOT.command(pass_context=True)
+@bot.command(pass_context=True)
 async def weak(ctx, *, message=None):
     if message is None:
-        await BOT.say("What hero counter are you looking for?")
+        await bot.say("What hero counter are you looking for?")
     else:
         counters = fetch.get_weak_counters(message)
-        await BOT.say(counters)
+        await bot.say(counters)
 
-@BOT.command(pass_context=True)
+@bot.command(pass_context=True)
 async def patchfor(ctx, *, message=None):
     if message is None:
-        await BOT.say("What hero patchnotes are you looking for?")
+        await bot.say("What hero patchnotes are you looking for?")
     else:
         patch = fetch.get_hero_patch_notes(message)
-        await BOT.say(patch)
-Usage: 
-@bot.command(aliases=["bar", "baz"])
-async def foo():
-    pass
+        await bot.say(patch)
 
-@BOT.command(pass_context=True)
+@bot.command(pass_context=True)
 async def build(ctx, *, message=None, aliases=["build", "builds"]):
     if message is None:
-        await BOT.say("What hero build are you looking for?")
+        await bot.say("What hero build are you looking for?")
     else:
         hero = message
         builds = BUILD_BUILDER.get_builds_for_hero(hero)
-        await BOT.say(builds)
+        await bot.say(builds)
 
-@BOT.command()
+@bot.command()
 async def patchnotes():
     patch_notes_links = fetch.get_latest_patch_notes()
     patch_notes_links = '3 most recent patches:\n' + patch_notes_links
-    await  BOT.say(patch_notes_links)
+    await  bot.say(patch_notes_links)
 
-@BOT.command(pass_context=True)
+@bot.command(pass_context=True)
 async def h(ctx, *, message=None):
     if message is None:
-        await BOT.say("What?")
+        await bot.say("What?")
     else:
         info_request = message.content[2:-2].lower()
         msg = BUILD_BUILDER.process_request(info_request)
         talent = message.content[2:-2].lower()
         #description = BUILD_BUILDER.get_talent(talent)
-        #await BOT.send_message(message.channel, msg)
-        await BOT.send_message(message.channel, "talent, that's generous")
+        #await bot.send_message(message.channel, msg)
+        await bot.send_message(message.channel, "talent, that's generous")
 
 
 # def test():
@@ -107,19 +105,19 @@ async def h(ctx, *, message=None):
      # print("Testing ability-hotkey...{}".format(fetch.get_hero_ability_for_hotkey('the lost vikings', 'Q')))
 
 
-# @BOT.command(passed_context=True)
+# @bot.command(passed_context=True)
 # async def registertag(ctx):
 #     discordID = ctx.message.author
 #     battletag = message
-#     await BOT.say("{0}, {1}".format(discordID, battletag))
+#     await bot.say("{0}, {1}".format(discordID, battletag))
 #         #db_worker.register_discordID_for_battletag(db_worker.get_connection(JAWS_DICT), discordID, battletag)
 
 # "kregnax#2710"
-# @BOT.command(passed_context=True)
+# @bot.command(passed_context=True)
 # async def addtxtcmd(ctx):
 #     if(str(ctx.message.author) == "ody77#9828"):
 #         print(ctx.message.content)
-#         BOT.say(ctx.message.content)
+#         bot.say(ctx.message.content)
 
 
     #     cmd_in = message.content.split()
@@ -133,7 +131,7 @@ async def h(ctx, *, message=None):
     # else:
     #     await CLIENT.send_message(message.channel, "You don't have access, fool.")
 
-# @BOT.command(pass_context=True)
+# @bot.command(pass_context=True)
 # async def excom(self, ctx):
 #     """CTX example command"""
 #     author = ctx.message.author
@@ -147,8 +145,8 @@ async def h(ctx, *, message=None):
 #     embed.set_author(name=str(author.name), icon_url=author.avatar_url)
 #     embed.add_field(name=field_name, value=field_contents)  # Can add multiple fields.
 #     embed.set_footer(text=footer_text)
-#     await self.BOT.say(embed=embed)
+#     await self.bot.say(embed=embed)
 
 
 
-BOT.run(KEY)
+bot.run(KEY)
