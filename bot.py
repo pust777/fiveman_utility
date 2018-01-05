@@ -25,20 +25,19 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    if message.content.startswith("{{") and message.content.endswith("}}"):
+    if message.content.startswith("[[") and message.content.endswith("]]"):
         info_request = message.content[2:-2].lower()
         msg = BUILD_BUILDER.process_request(info_request)
         talent = message.content[2:-2].lower()
         description = BUILD_BUILDER.get_talent(talent)
         await bot.send_message(message.channel, "talent, that's generous")
+    await bot.process_commands(message)
 
 @bot.command(pass_context=True)
 async def say(ctx, *, message=None):
     if message is None:
-        await bot.process_commands(message)
         await bot.say("Say something, I'm giving up on you.\nI'll be the bot, if you want me to.")
     else:
-        await bot.process_commands(message)
         await bot.say(message)
 
 @bot.command(pass_context=True)
