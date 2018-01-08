@@ -12,7 +12,7 @@ BUILD_BUILDER = BuildBuilder()
 
 DESCRIPTION = '''An example bot to showcase the discord.ext.commands extension
 module.There are a number of utility commands being showcased here.'''
-bot = commands.bot(command_prefix="?", description=DESCRIPTION)
+bot = commands.Bot(command_prefix="?", description=DESCRIPTION)
 
 
 @bot.event
