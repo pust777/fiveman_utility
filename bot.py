@@ -25,7 +25,8 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    if message.content.startswith("{{") and message.content.endswith("}}"):
+    re.search(r"\[\[([A-Za-z0-9_]+)\]\]", s)
+    if message.content.startswith("[[") and message.content.endswith("]]"):
         info_request = message.content.strip("[[").strip("]]").lower()
         msg = BUILD_BUILDER.process_request(info_request)
         #talent = message[2:-2].lower()
